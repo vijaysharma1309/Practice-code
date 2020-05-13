@@ -11,11 +11,11 @@ typedef struct {
 int main()
 {
     unsigned int n, h, i, j = 0, max = 0, index = 0;
-    long double ladder;
+    long double ladder, l;
 
     scanf("%d %d", &n, &h);
    
-    long double *max_height = (long double *)malloc(5 * sizeof(long double));
+    long double *max_height = (long double *)malloc(3 * sizeof(long double));
     poster *pos = (poster *)malloc(n * sizeof(poster));
 
     for(i = 0; i < n; ++i)
@@ -32,12 +32,12 @@ int main()
             pos[i].diff = 0;
     }
     
-    for(i = 0; i < 5; ++i)
+    for(i = 0; i < 3; ++i)
     {
         max_height[i] = 0.0;
     }
     
-    for(j = 0; j < 5; ++j)
+    for(j = 0; j < 3; ++j)
     {
         max = pos[0].diff;
         index = 0;
@@ -49,23 +49,23 @@ int main()
                 index = i;
             }
         }
-        ladder = pos[index].wall_points - pos[index].length * 0.25 - h;
-        max_height[j] = ladder;
+        l = pos[index].wall_points - pos[index].length * 0.25 - h;
+        max_height[j] = l;
         pos[index].diff = 0;
     }
     
-    ladder = max_height[0];
-    for(i = 1; i < 5; ++i)
+    l = max_height[0];
+    for(i = 1; i < 3; ++i)
     {
-        if(ladder < max_height[i])
+        if(l < max_height[i])
         {
-            ladder = max_height[i];
+            l = max_height[i];
         }
     }
     
-    if(ladder > 0.0)
+    if(l > 0.0)
     {
-        printf("%0.0f", ceil(ladder));
+        printf("%0.0f", ceil(l));
     }
     else
     {
