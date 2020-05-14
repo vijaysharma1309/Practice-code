@@ -11,7 +11,7 @@ typedef struct {
 int main()
 {
     unsigned int n, h, i, j = 0, max = 0, index = 0;
-    long double ladder, l;
+    long double ladder;
 
     scanf("%d %d", &n, &h);
    
@@ -49,23 +49,23 @@ int main()
                 index = i;
             }
         }
-        l = pos[index].wall_points - pos[index].length * 0.25 - h;
-        max_height[j] = l;
+        ladder = pos[index].wall_points - pos[index].length * 0.25 - h;
+        max_height[j] = ladder;
         pos[index].diff = 0;
     }
     
-    l = max_height[0];
+    ladder = max_height[0];
     for(i = 1; i < 3; ++i)
     {
-        if(l < max_height[i])
+        if(ladder < max_height[i])
         {
-            l = max_height[i];
+            ladder = max_height[i];
         }
     }
     
-    if(l > 0.0)
+    if(ladder > 0.0)
     {
-        printf("%0.0f", ceil(l));
+        printf("%0.0f", ceil(ladder));
     }
     else
     {
