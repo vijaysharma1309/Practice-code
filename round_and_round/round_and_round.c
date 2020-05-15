@@ -8,24 +8,23 @@ int match(char *num, char *ans ,int n)
 
     for(index = 1; index <= n; ++index)
     {
+        int z = 0;
+        
+        //always doing a shift of 1
+        int arr2[1];
+        for(j = 0; j < 1; ++j)
         {
-            int z = 0;
-            
-            //always doing a shift of 1
-            int arr2[1];
-            for(j = 0; j < 1; ++j)
-            {
-                arr2[j] = num[j];
-            }
-            for(j = 1; j < n; ++j)
-            {
-                num[j-1] = num[j];
-            }
-            for(j = n-1; j < n; ++j)
-            {
-                num[j] = arr2[z++];
-            }
+            arr2[j] = num[j];
         }
+        for(j = 1; j < n; ++j)
+        {
+            num[j-1] = num[j];
+        }
+        for(j = n-1; j < n; ++j)
+        {
+            num[j] = arr2[z++];
+        }
+        
         if(strcmp(num, ans) == 0)
         {
             return 1;
