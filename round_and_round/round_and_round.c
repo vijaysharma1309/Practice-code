@@ -2,13 +2,15 @@
 #include<stdlib.h>
 #include<string.h>
 
+#define DIGITS_BASE_ASCII           48
+
 int match(char *num, char *ans ,int n)
 {
-    int i, j, index;
+    int j, index, z;
 
     for(index = 1; index <= n; ++index)
     {
-        int z = 0;
+        z = 0;
         
         //always doing a shift of 1
         int arr2[1];
@@ -56,8 +58,8 @@ int main()
         carry = 0;
         for(j = len-1; j >= 0; --j)
         {
-            ans[j] = ((carry + (num[j]-48) * i) % 10) + 48;
-            carry = (carry + (num[j]-48) * i) / 10;
+            ans[j] = ((carry + (num[j] - DIGITS_BASE_ASCII) * i) % 10) + DIGITS_BASE_ASCII;
+            carry = (carry + (num[j] - DIGITS_BASE_ASCII) * i) / 10;
         }
 
         if(!match(num, ans, len))
