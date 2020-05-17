@@ -88,7 +88,6 @@ int main()
         
     mergeSort(arr, 0, n-1);
 
-    rem = n % m;
     quo = n / m;
     
     j = 1;
