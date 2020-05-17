@@ -74,7 +74,7 @@ void mergeSort(unsigned int arr[], unsigned int l, unsigned int r)
 
 int main()
 {
-    unsigned int m, n, i, j, rem = 0, quo = 0;
+    unsigned int m, n, i, j, quo = 0;
     unsigned long long int sum = 0, max_score = 0;
     unsigned int modulo = 1000000007;
 
@@ -90,37 +90,22 @@ int main()
 
     rem = n % m;
     quo = n / m;
-
-    if(rem && quo > 1)
+    
+    j = 1;
+    for(i = 0; i < (m * quo-1); ++i)
     {
-        j = 1;
-        for(i = 0; i < (m * quo-1); ++i)
+        sum += arr[i];
+        if(!((i+1) % m))
         {
-            sum += arr[i];
-            if(!((i+1) % m))
-            {
-                max_score += sum*(j++);
-                sum = 0;
-            }
-        }
-        for(i = (m * quo - 1); i < n; ++i)
-        {
-            sum += arr[i];
-        }
-        max_score += sum * j;
-    }
-    else
-    {
-        j = 1;
-        for(i = 0; i < n; ++i)
-        {
-            sum += arr[i];
-            if(!((i+1) % m))
-            {
-                max_score += sum*(j++);
-                sum = 0;
-            }
+            max_score += sum*(j++);
+            sum = 0;
         }
     }
+    for(i = (m * quo - 1); i < n; ++i)
+    {
+        sum += arr[i];
+    }
+    max_score += sum * j;
+    
     printf("%lld", max_score % modulo);
 }
