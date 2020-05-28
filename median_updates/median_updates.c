@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include <time.h> 
 
 struct node{
     long long int data;
@@ -20,6 +19,7 @@ void insert_node(struct node **head, long long int data)
     struct node *new_node = (struct node *)malloc(sizeof(struct node));
     struct node *temp = *head;
     struct node *t2 = *head;
+    struct node *mid = NULL;
     int l_count = 0;
 
     ++count;
@@ -66,19 +66,6 @@ void insert_node(struct node **head, long long int data)
     return;
 }
 
-void display(struct node **head)
-{
-   struct node *temp = *head;
-
-   while(temp != NULL)
-   {
-       printf("%lld\n", temp->data);
-       temp = temp->next;
-   }
-
-   return;
-}
-
 int search_pos(struct node **head, long long int data)
 {
     struct node *temp = *head;
@@ -89,12 +76,6 @@ int search_pos(struct node **head, long long int data)
         return -1;
     }
 
-    /*if(data > middle->data)
-    {
-        temp = middle;
-        l_count = mid_count;
-    }*/
-
     while(temp->data != data && temp->next != NULL)
     {
         ++l_count;
@@ -103,7 +84,6 @@ int search_pos(struct node **head, long long int data)
     
     if(temp->data == data)
     {
-        //printf("delete pos: %d, value: %lld\n", l_count, temp->data);
         flag = 1;
     }
     if(flag == 0)
@@ -112,58 +92,38 @@ int search_pos(struct node **head, long long int data)
     return l_count;
 }
 
-int delete_pos(struct node **head, long long int data)
+void delete_pos(struct node **head, long long int pos)
 {
     struct node *temp = *head;
     struct node *t2 = *head;
     int l_count = 1;
-
-    /*if(count == 0)
-    {
-        return -1;
-    }*/
+    
     --count;
 
-    if(data > middle->data)
+    if(count == 0)
     {
-        temp = middle;
-        while(temp->data != data && temp != NULL)
-        {
-            t2 = temp;
-            temp = temp->next;
-        }
-    }
-    else
-    {
-        if(temp == *head && count == 0)
-        {
-            *head = NULL;
-            free(temp);
-            return -1;
-        }
-        while(temp->data != data && temp != middle->next)
-        {
-            t2 = temp;
-            temp = temp->next;
-        }
-    }
-    if(temp->data == data && temp != *head)
-    {
-        t2->next = temp->next;
         free(temp);
-        return 0;
-    }
-    else if(temp == *head)
-    {
-        *head = temp->next;
-        free(temp);
-    }
-    else
-    {
-        return -1;
+        *head = NULL;
+        return;
     }
 
-    return 0;
+    if(pos == 0)
+    {
+        *head = temp->next;
+        temp->next = NULL;
+        free(temp);
+        return;
+    }
+
+    while(l_count < (pos))
+    {
+        ++l_count;
+        temp = temp->next;
+    }
+    t2 = temp->next;
+
+    temp->next = temp->next->next;
+    free(t2);
 }
 
 long double find_median(struct node **head)
@@ -199,9 +159,6 @@ int main()
     int n, i, j, num, pos;
     char op;
 
-    /*clock_t t; 
-    t = clock();*/
-
     struct node *head = NULL;
 
     scanf("%d", &n);
@@ -210,11 +167,6 @@ int main()
     for(i = 0; i < n; ++i)
     {
         scanf(" %c %d", &data_input[i].op, &data_input[i].num);
-    /*}
-    
-    for(i = 0; i < n; ++i)
-    { */  
-        //printf("opt: %c, value: %d || output: %s\n", data_input[i].op, data_input[i].num, answer[i]);
 
         if(data_input[i].op == 'a')
         {
@@ -239,19 +191,14 @@ int main()
         }
         else
         {   
-            /*pos = search_pos(&head, data_input[i].num);
+            pos = search_pos(&head, data_input[i].num);
             if(pos == -1)
             {
                 printf("Wrong!\n");
                 continue;
-            }*/
-            
-            if(head == NULL)
-            {
-                printf("Wrong!\n");
-                continue;
             }
-            if(delete_pos(&head, data_input[i].num))
+            delete_pos(&head, pos);
+            if(head == NULL)
             {
                 printf("Wrong!\n");
                 continue;
@@ -269,23 +216,7 @@ int main()
                     printf("%0.0Lf\n", l_median/2);
             }
         }
-        //printf("\n"); 
-        //display(&head);
-        //printf("\n");
-        
     }
     
     free(data_input);
-    /*t = clock() - t; 
-    double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds 
-  
-    printf("took %f seconds to execute \n", time_taken);*/
-
-    /*in sec
-    10000 = 0.67
-    20000 = 3.2
-    40000 = 15.42
-    100000 = 175
-
-    */
 }
