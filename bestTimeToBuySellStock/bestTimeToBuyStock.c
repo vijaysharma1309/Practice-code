@@ -2,18 +2,20 @@
 
 int maxProfit(int *arr, int n)
 {
-    int i, j, val, max = 0;
-    for(i = 0; i < n - 1; ++i)
+    int i, max = 0, min = __INT_MAX__;
+    
+    for(i = 0; i < n; ++i)
     {
-        for(j = i+1; j < n; ++j)
+        if(min > arr[i])
         {
-            val = arr[j] - arr[i];
-            if(max < val && val > 0)
-            {
-                max = val;
-            }
+            min = arr[i];
+        }
+        else if((arr[i] - min) > max)
+        {
+            max = arr[i] - min;
         }
     }
+
     return max;
 }
 
