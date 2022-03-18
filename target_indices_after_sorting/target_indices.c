@@ -21,7 +21,6 @@ int* targetIndices(int* nums, int numsSize, int target, int* returnSize)
     for(i = 0; i < count; ++i)
     {
         arr[i] = small + i;
-        printf("%d \n", arr[i]);
     }
 
     *returnSize = count;
@@ -40,4 +39,6 @@ int main()
     { 
         printf("%d ", outArr[i]);
     }
+    
+    free(outArr);
 }
